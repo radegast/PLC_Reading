@@ -55,6 +55,10 @@ namespace TCP_Haberlerşme
             // bilgisayarın ethernet kartını, PLC nin Ip adresi ile aynı bloklara almak gerekiyor 192.168.0.XX
             try
             {
+                BtnBaglan.Enabled = false;
+                txtIP.Enabled = false;
+                txtPort.Enabled = false;
+
                 modbusClient = new ModbusClient(
                            txtIP.Text.Trim().ToString(),
                            Convert.ToInt32(txtPort.Text.ToString().Trim()));
@@ -64,15 +68,14 @@ namespace TCP_Haberlerşme
                 LblBaglandi.Visible = true;
 
                 timer1.Start();
-
-                BtnBaglan.Enabled = false;
             }
             catch (Exception ex)
             {
                 timer1.Stop();
                 LblBaglandi.Visible = false;
                 BtnBaglan.Enabled = true;
-
+                txtIP.Enabled = true;
+                txtPort.Enabled = true;
                 MessageBox.Show(ex.Message, "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
